@@ -204,3 +204,4 @@ Received Import Request.
 Start importing Assets/Prefabs/Barrier.prefab using Guid(98778b598ca6e524ca34d9b716aac647) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0bc1d65a14e5cb41e00ccf4ad8e3a052') in 0.018034 seconds 
   Import took 0.021578 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
