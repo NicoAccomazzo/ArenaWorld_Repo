@@ -9,6 +9,9 @@ public class PlayerBehavior : MonoBehaviour
     public float jumpVelocity = 3f;
     public float distanceToGround = 0.01f;
     public LayerMask groundLayer;
+    public float miniMoveSpeed = 0.1f;
+    public float miniJumpVelocity = 1f;
+
 
     private float vInput;
     private float hInput;
@@ -29,8 +32,8 @@ public class PlayerBehavior : MonoBehaviour
     {
         if (this.transform.localScale == playerShrink)
         {
-            moveSpeed = 0.1f;
-            jumpVelocity = 1f;
+            moveSpeed = miniMoveSpeed;
+            jumpVelocity = miniJumpVelocity;
         } else {
             moveSpeed = 3f;
             jumpVelocity = 3f;

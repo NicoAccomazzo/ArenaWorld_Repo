@@ -6,12 +6,12 @@ public class ScaleBehavior : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        if (other.name == "ShrinkLaser")
+        if (other.tag == "ShrinkLaser")
         {
             Debug.Log("Shrink Engaged");
         } 
 
-        if (other.name == "EnlargeLaser")
+        if (other.tag == "EnlargeLaser")
         {
             Debug.Log("Enlarge Engaged");
         } 
@@ -19,13 +19,13 @@ public class ScaleBehavior : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.name == "ShrinkLaser")
+        if (other.tag == "ShrinkLaser")
         {
             Debug.Log("Shrink Finished");
             this.transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
         } 
 
-        if (other.name == "EnlargeLaser")
+        if (other.tag == "EnlargeLaser")
         {
             Debug.Log("Enlarge Finished");
             this.transform.localScale = new Vector3 (0.5f, 0.5001f, 0.5f);
