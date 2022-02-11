@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class SpeedUpBehavior : MonoBehaviour
 {
-    void OnCollisionEnter(Collision collision)
+    public float BoostMultiplier = 10.0f;
+    public float BoostSeconds = 5.0f;
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.name == "Player")
+        if (other.gameObject.name == "Player")
         {
-            Destroy (this.transform.parent.gameObject);
+            Destroy(this.transform.parent.gameObject);
             Debug.Log("Gotta Go Fast!");
+
+            PlayerBehavior Player = other.gameObject.GetComponent<PlayerBehavior>();
+            Player.BoostSpeed(BoostMultiplier, BoostSeconds);
         }
     }
 }

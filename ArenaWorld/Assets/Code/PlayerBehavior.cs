@@ -13,6 +13,7 @@ public class PlayerBehavior : MonoBehaviour
     public float miniJumpVelocity = 1f;
 
 
+    private bool doJump;
     private float vInput;
     private float hInput;
     private Rigidbody _rb;
@@ -41,7 +42,7 @@ public class PlayerBehavior : MonoBehaviour
 
         if (IsGrounded() && Input.GetKeyDown(KeyCode.Space))
         {
-            _rb.AddForce(Vector3.up * jumpVelocity, ForceMode.Impulse);
+            doJump = true;
         }
 
 
@@ -49,12 +50,19 @@ public class PlayerBehavior : MonoBehaviour
         hInput = Input.GetAxis("Horizontal") * rotateSpeed;
     }
 
+    // 
     void FixedUpdate()
     {
-            Vector3 rotation = Vector3.up * hInput;
-            Quaternion angleRot = Quaternion.Euler(rotation * Time.fixedDeltaTime);
-            _rb.MovePosition(this.transform.position + this.transform.forward * vInput * Time.fixedDeltaTime);
-            _rb.MoveRotation(_rb.rotation * angleRot);
+        if (doJump)
+        {
+            _rb.AddForce(Vector3.up * jumpVelocity, ForceMode.Impulse);
+            doJump = false;
+        }
+
+        Vector3 rotation = Vector3.up * hInput;
+        Quaternion angleRot = Quaternion.Euler(rotation * Time.fixedDeltaTime);
+        _rb.MovePosition(this.transform.position + this.transform.forward * vInput * Time.fixedDeltaTime);
+        _rb.MoveRotation(_rb.rotation * angleRot);
     }
 
     private bool IsGrounded()
@@ -63,5 +71,23 @@ public class PlayerBehavior : MonoBehaviour
         bool grounded = Physics.CheckCapsule(_col.bounds.center, capsuleBottom, distanceToGround, groundLayer, QueryTriggerInteraction.Ignore);
         
         return grounded;
+    }
+
+    /*
+        Speed Boost
+    */
+    private float speedMultiplier;
+
+    public void BoostSpeed(float multiplier, float seconds)
+    {
+        speedMultiplier = multiplier;
+        moveSpeed *= multiplier;
+        Invoke("EndSpeedBoost", seconds);
+    }
+
+    private void EndSpeedBoost()
+    {
+        Debug.Log("Speed Boost Ended");
+        moveSpeed /= speedMultiplier;
     }
 }
