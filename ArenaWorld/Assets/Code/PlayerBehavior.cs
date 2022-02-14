@@ -13,6 +13,9 @@ public class PlayerBehavior : MonoBehaviour
     public float miniJumpVelocity = 1f;
 
 
+    public GameObject bullet;
+    public float bulletSpeed = 100f;
+
     private bool doJump;
     private float vInput;
     private float hInput;
@@ -53,10 +56,19 @@ public class PlayerBehavior : MonoBehaviour
     // 
     void FixedUpdate()
     {
+        // Jumping when flag is triggered
         if (doJump)
         {
             _rb.AddForce(Vector3.up * jumpVelocity, ForceMode.Impulse);
             doJump = false;
+        }
+        
+        // Bullet when left mouse is triggered
+        if (Input.GetMouseButtonDown(0))
+        {
+            GameObject newBullet = Instantiate (bullet, this.transform.position + new Vector3(1, 0, 0), this.transform.rotation) as GameObject;
+            Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
+            bulletRB.velocity = this.transform.forward * bulletSpeed;
         }
 
         Vector3 rotation = Vector3.up * hInput;
