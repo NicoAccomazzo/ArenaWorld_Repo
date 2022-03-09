@@ -78,7 +78,7 @@ public class PlayerBehavior : MonoBehaviour
         // Bullet when left mouse is triggered
         if (doShoot)
         {
-            GameObject newBullet = Instantiate (bullet, this.transform.position + new Vector3(1, 0, 0), this.transform.rotation) as GameObject;
+            GameObject newBullet = Instantiate (bullet, this.transform.position + new Vector3(0, 0, 0), this.transform.rotation) as GameObject;
             Rigidbody bulletRB = newBullet.GetComponent<Rigidbody>();
             bulletRB.velocity = this.transform.forward * bulletSpeed;
             doShoot = false;
